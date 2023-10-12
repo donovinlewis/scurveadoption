@@ -104,7 +104,7 @@ def scurve_project(data_array, coeffs, SAMPLE_NUMBER = 25, plot_flag = False):
     '''
     
 
-    sample_array = np.arange(data_array[0,:][-1], data_array[0,:][-1] + SAMPLE_NUMBER)
+    sample_array = np.arange(data_array[0,:][0], data_array[0,:][0] + SAMPLE_NUMBER)
     sample_log = np.log(sample_array)
     
     projected_array = (1/(1 + np.exp(-coeffs[0] * sample_log - coeffs[1])))
