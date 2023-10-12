@@ -45,7 +45,7 @@ def scurve_fit(data_array, plot_flag = False):
         FIGUREWIDTH = 3.3 #inches; this is used to control the figure width
         PROPORTION = 0.62
         LABELFONTSIZE = 7
-        LINEWIDTH = 0.1
+        LINEWIDTH = 1
         TICKSIZE = 2
         mpl.rcParams['xtick.major.size'] = TICKSIZE
         mpl.rcParams['ytick.major.size'] = TICKSIZE
@@ -59,17 +59,17 @@ def scurve_fit(data_array, plot_flag = False):
         plt.scatter(x_log, y_log)
         
         p = np.poly1d(coeffs)
-        plt.plot(x_log, p(x_log), '--')
+        plt.plot(x_log, p(x_log), '--', linewidth = LINEWIDTH)
         ax.ticklabel_format(useOffset=False)
         plt.legend(['Original', 'Linear Fit'], fontsize = LABELFONTSIZE, frameon = False, loc = 'upper left')
         plt.text(0.6, 0.1 , f'y = {coeffs[0]:.0f}x + {coeffs[1]:.0f}', fontsize=LABELFONTSIZE, transform = ax.transAxes)
         
         
         fig, ax = plt.subplots(1,1, sharex=True, sharey = True, figsize=(FIGUREWIDTH,FIGUREWIDTH*PROPORTION), constrained_layout=False)
-        plt.plot(data_array[0,:], data_array[1,:] * 100, label = 'True')
+        plt.plot(data_array[0,:], data_array[1,:] * 100, linewidth = LINEWIDTH, label = 'True')
         
         projected_array = (1/(1 + np.exp(-coeffs[0] * x_log - coeffs[1])))
-        plt.plot(np.exp(x_log), projected_array * 100, linestyle = '--', label = 'Predicted')
+        plt.plot(np.exp(x_log), projected_array * 100, linewidth = LINEWIDTH, linestyle = '--', label = 'Predicted')
         
         ax.ticklabel_format(useOffset=False)
         plt.xlim([min(data_array[0,:]), max(data_array[0,:])])
@@ -118,7 +118,7 @@ def scurve_project(data_array, coeffs, SAMPLE_NUMBER = 25, plot_flag = False):
         FIGUREWIDTH = 3.3 #inches; this is used to control the figure width
         PROPORTION = 0.62
         LABELFONTSIZE = 7
-        LINEWIDTH = 0.1
+        LINEWIDTH = 1
         TICKSIZE = 2
         mpl.rcParams['xtick.major.size'] = TICKSIZE
         mpl.rcParams['ytick.major.size'] = TICKSIZE
@@ -129,7 +129,7 @@ def scurve_project(data_array, coeffs, SAMPLE_NUMBER = 25, plot_flag = False):
         
         
         fig, ax = plt.subplots(1,1, sharex=True, sharey = True, figsize=(FIGUREWIDTH,FIGUREWIDTH*PROPORTION), constrained_layout=False)
-        plt.plot(sample_array, projected_array, linestyle = '--')
+        plt.plot(sample_array, projected_array, linewidth = LINEWIDTH, linestyle = '--')
         ax.ticklabel_format(useOffset=False)
         plt.xlim([min(sample_array), max(sample_array)])
         plt.ylabel('Technology Adoption [%]', size = LABELFONTSIZE)
@@ -166,7 +166,7 @@ def scurve_plot(data_array, legend_array = None):
     FIGUREWIDTH = 3.3 #inches; this is used to control the figure width
     PROPORTION = 0.62
     LABELFONTSIZE = 7
-    LINEWIDTH = 0.1
+    LINEWIDTH = 1
     TICKSIZE = 2
     mpl.rcParams['xtick.major.size'] = TICKSIZE
     mpl.rcParams['ytick.major.size'] = TICKSIZE
@@ -178,7 +178,7 @@ def scurve_plot(data_array, legend_array = None):
     fig, ax = plt.subplots(1,1, sharex=True, sharey = True, figsize=(FIGUREWIDTH,FIGUREWIDTH*PROPORTION), constrained_layout=False)
     
     for i in np.arange(1, np.size(data_array, 0)):
-        plt.plot(data_array[0,:], data_array[i,:] * 100)
+        plt.plot(data_array[0,:], data_array[i,:] * 100, linewidth = LINEWIDTH)
         if legend_array != None:
             plt.legend(legend_array, fontsize = LABELFONTSIZE, frameon = False, loc = 'upper left')
     
